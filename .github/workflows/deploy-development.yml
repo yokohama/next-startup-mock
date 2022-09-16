@@ -6,6 +6,7 @@ on:
       - development
     paths:
       - 'openapi/**'
+      - '.github/workflows/**'
         
 jobs:
   Deploy-APIGateway:
@@ -22,5 +23,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: APIGateway update.
-        run: ls -l
-        run: ls -l
+        run: |
+          ls -la
+          ls -la
+          ls -l
