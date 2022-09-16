@@ -24,6 +24,5 @@ jobs:
 
       - name: APIGateway update.
         run: |
-          ls -la
-          ls -la
           ls -l
+          TARGET_ENV=dev bash ./bin/deploy.sh
