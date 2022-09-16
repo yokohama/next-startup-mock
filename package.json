@@ -1,0 +1,14 @@
+{
+  "name": "next-startup-mock",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "volta": {
+    "node": "18.9.0",
+    "yarn": "1.22.19",
+    "npm": "8.17.0"
+  },
+  "dependencies": {
+    "@stoplight/prism-cli": "^4.10.3"
+  }
+}
