@@ -21,10 +21,15 @@ AWS_REGION
 ![範囲を選択_421](https://user-images.githubusercontent.com/1023421/190698563-bd7edd50-ef62-4342-8c5c-f257ce8525c9.png)
 
 
+## Mockサーバー上起動
+```
+prism mock ./openapi/root-local.yaml
+```
+
 ## Deploy
 
 ### local（APIGatewayの、NextStartUpApi-local）
-- ローカルコンソールより実行
+- ローカルコンソールより実行できますが、通常の開発はローカルのMockサーバーで行ないますので、不要です。
 ```
 bash ./bin/deploy.sh
 ```
