@@ -2,8 +2,8 @@ openapi: 3.0.0
 
 info:
   # next-startup-cdkで作成した、localのApiGateway名を指定してください。
-  title: NextStartUpApi-local
-  description: Local-API
+  title: NextStartUpApi-prod
+  description: Production-API
   contact:
     name: 'API Support'
     url: https://github.com/yokohama/next-startup-mock
