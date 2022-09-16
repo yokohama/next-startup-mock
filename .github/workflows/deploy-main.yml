@@ -7,6 +7,7 @@ on:
     paths:
       - 'openapi/**'
       - '.github/workflows/**'
+      - '.github/actions/**'
         
 jobs:
   Deploy-APIGateway:
