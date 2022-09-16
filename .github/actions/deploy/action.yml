@@ -25,3 +25,4 @@ runs:
     - name: APIGateway update.
       shell: bash
       run: TARGET_ENV=${{ inputs.env }} bash ./bin/deploy.sh
+
