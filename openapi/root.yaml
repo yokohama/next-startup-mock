@@ -1,8 +1,8 @@
 openapi: 3.0.0
 
 info:
-  title: NextStartUpApi
-  description: API
+  # title: API Gateway用にデプロイ時に自動で書き換える。設定したい場合は、openapi/env.confで設定
+  # description: API Gateway用にデプロイ時に自動で書き換える。設定したい場合は、openapi/env.confで設定
   contact:
     name: 'API Support'
     url: https://github.com/yokohama/next-startup-mock
