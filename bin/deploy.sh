@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ENV_PREFIX='NextStartUpApi-'
+ENV_PREFIX='Api-'
 
 if [ "$TARGET_ENV" == "dev" ]; then
   TARGET_ENV=dev
