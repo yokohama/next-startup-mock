@@ -9,7 +9,7 @@ elif [ "$TARGET_ENV" == "prod" ]; then
 else
   TARGET_ENV=local
 fi
-YAML_FILE="./openapi/root-${TARGET_ENV}.yaml"
+YAML_FILE="./openapi/root.yaml"
 
 ITEMS=`aws apigateway get-rest-apis`
 
