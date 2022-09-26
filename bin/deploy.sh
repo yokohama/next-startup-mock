@@ -25,5 +25,3 @@ aws apigateway put-rest-api \
   --cli-binary-format raw-in-base64-out \
   --rest-api-id ${API_GATEWAY_ID} \
   --body "file://${YAML_FILE}"
-
-exit 0

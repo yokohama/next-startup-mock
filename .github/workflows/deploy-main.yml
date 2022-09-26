@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'openapi/**'
+      - 'bin/**'
       - '.github/workflows/**'
       - '.github/actions/**'
         
