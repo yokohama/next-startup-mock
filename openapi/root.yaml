@@ -57,7 +57,12 @@ paths:
                   message:
                     description: エラーメッセージ
                     type: string
-
+      x-amazon-apigateway-integration:
+        type: "http_proxy" 
+        httpMethod: "GET" 
+        connectionType: "VPC_LINK" 
+        connectionId: "{NEXT-STARTUP-VPC-LINK-ID}" 
+        uri: "http://{NEXT-STARTUP-LB-URI}/pets"
 components:
   #securitySchemes:
   #  bearerAuth:
