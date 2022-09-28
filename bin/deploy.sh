@@ -19,7 +19,7 @@ if [ "${ENV_TITLE}" = "" ] || [ "${ENV_DESC}" = "" ]; then
 fi
 
 SOURCE_YAML_FILE='./openapi/root.yaml'
-YAML_FILE='./openapi/out.yaml'
+OUT_YAML_FILE='./openapi/out.yaml'
 
 VPC_LINK_ID=''
 json=$(aws apigateway get-vpc-links | jq -c -r '.items')
@@ -48,7 +48,7 @@ fi
 sed -r "s/(^\s{2})#\s(title:\s)(.*$)/\1\2${ENV_TITLE}/" ${SOURCE_YAML_FILE} |
   sed -r "s/(^\s{2})#\s(description:\s)(.*$)/\1\2${ENV_DESC}/" |
   sed -r "s/\{NEXT-STARTUP-VPC-LINK-ID\}/${VPC_LINK_ID}/" |
-  sed -r "s/\{NEXT-STARTUP-LB-URI\}/${LB_URI}/" > ${YAML_FILE}
+  sed -r "s/\{NEXT-STARTUP-LB-URI\}/${LB_URI}/" > ${OUT_YAML_FILE}
 
 API_GATEWAY_ID=''
 json=$(aws apigateway get-rest-apis | jq -c -r '.items')
@@ -66,10 +66,10 @@ if [ "${API_GATEWAY_ID}" = "" ]; then
   exit 1
 fi
 
-#aws apigateway put-rest-api \
-#  --mode overwrite \
-#  --cli-binary-format raw-in-base64-out \
-#  --rest-api-id ${API_GATEWAY_ID} \
-#  --body "file://${YAML_FILE}"
-#
-#rm -rf ${YAML_FILE}
+aws apigateway put-rest-api \
+  --mode overwrite \
+  --cli-binary-format raw-in-base64-out \
+  --rest-api-id ${API_GATEWAY_ID} \
+  --body "file://${OUT_YAML_FILE}"
+
+rm -rf ${OUT_YAML_FILE}
