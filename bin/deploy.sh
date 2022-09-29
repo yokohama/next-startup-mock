@@ -3,7 +3,7 @@
 if [ "${TARGET_ENV}" = "" ]; then
   echo '[Error]'
   echo '- TARGET_ENV param required. [ local | dev | prod ]'
-  echo '- ex) TARGET_ENV=local ./init/ecr_init_push.sh local'
+  echo '- ex) TARGET_ENV=local ./bin/deploy'
   exit 1
 fi
 
