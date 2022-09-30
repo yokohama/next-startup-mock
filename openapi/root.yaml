@@ -3,113 +3,72 @@ openapi: 3.0.0
 info:
   # title: API Gateway用にデプロイ時に自動で書き換える。設定したい場合は、openapi/env.confで設定
   # description: API Gateway用にデプロイ時に自動で書き換える。設定したい場合は、openapi/env.confで設定
+  title: NEXT-STARTUP-TITLE
+  description: NEXT-STARTUP-DESC
   contact:
     name: 'API Support'
     url: https://github.com/yokohama/next-startup-mock
-  lisense:
-    name: Apache 2.0,
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.1
 
-# CDKで作成された、それぞれの環境のAPIGatewayのエンドポインを記載
+# ISSUE: 16
 servers:
   - url: http://localhost:3000
 
-#security:
-#  - bearerAuth: [] 
+security:
+  - Bearer: []
 
 paths:
-  /pets:
+  /users:
     get:
-      summary: Get Pet Info by Pet ID
-      tags: []
+      tags:
+        - users
+      summary: Get all users.
+      description: Returns an array of User model.
+      parameters: []
       responses:
         '200':
-          description: Pet Found
+          description: A Json array of User model.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-              examples:
-                Get Pet Alice Smith:
-                  value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
-        '404':
-          description: Pet Not Found
-        '401':
-          #$ref: "#/components/responses/UnauthorizedError"
-          description: API key is missing or invalid
-          content:
-            application/json:
-              schema:
-                title: エラー
-                type: object
-                properties:
-                  code:
-                    description: エラーコード
-                    type: string
-                  message:
-                    description: エラーメッセージ
-                    type: string
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                example:
+                  - id: 1
+                    name: Hoge Moge
+                  - id: 2
+                    name: Foo Bar
+        '405':
+          $ref: '#/components/responses/UnauthorizedError'
       x-amazon-apigateway-integration:
         type: "http_proxy" 
         httpMethod: "GET" 
         connectionType: "VPC_LINK" 
         connectionId: "{NEXT-STARTUP-VPC-LINK-ID}" 
-        uri: "http://{NEXT-STARTUP-LB-URI}/pets"
+        uri: "http://{NEXT-STARTUP-LB-URI}/users"
+
 components:
-  #securitySchemes:
-  #  bearerAuth:
-  #    type: http
-  #    scheme: bearer
-  #    bearerFormat: JWT
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
-    Pet:
-      title: Pet
+    User:
       type: object
-      description: ''
-      examples:
-        - id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
+      required:
+        - id
       properties:
         id:
           type: integer
-          description: Unique identifier for the given pet.
-        firstName:
+          format: int64
+        name:
           type: string
-        lastName:
-          type: string
-        email:
-          type: string
-          format: email
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1997-10-31'
-        emailVerified:
-          type: boolean
-          description: Set to true if the pet's email has been verified.
-        createDate:
-          type: string
-          format: date
-          description: The date that the pet was created.
-      required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
   responses:
     UnauthorizedError:
       description: API key is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string

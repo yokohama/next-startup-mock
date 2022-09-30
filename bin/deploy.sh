@@ -46,8 +46,9 @@ if [ "${LB_URI}" = "null" ] || [ "${LB_URI}" = "" ]; then
 fi
 
 # 元のyamlファイルのenvをAPIGateway用に上書き
-sed -r "s/(^\s{2})#\s(title:\s)(.*$)/\1\2${ENV_TITLE}/" ${SOURCE_YAML_FILE} |
-  sed -r "s/(^\s{2})#\s(description:\s)(.*$)/\1\2${ENV_DESC}/" |
+cat ${SOURCE_YAML_FILE} |
+  sed -r "s/NEXT-STARTUP-TITLE/${ENV_TITLE}/" |
+  sed -r "s/NEXT-STARTUP-DESC/${ENV_DESC}/" |
   sed -r "s/\{NEXT-STARTUP-VPC-LINK-ID\}/${VPC_LINK_ID}/" |
   sed -r "s/\{NEXT-STARTUP-LB-URI\}/${LB_URI}/" > ${OUT_YAML_FILE}
 
