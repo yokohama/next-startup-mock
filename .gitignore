@@ -16,4 +16,5 @@ yarn-error.log*
 
 openapi/out.yaml
 
+/log/*
 !/log/.keep
