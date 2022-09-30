@@ -8,6 +8,7 @@ if [ "${TARGET_ENV}" = "" ]; then
 fi
 
 AWS_ENV_FILE=openapi/aws_apigateway_env.conf
+LOG_FILE=log/aws_apigateway_put-rest-api.log
 
 ENV_TITLE=`cat ${AWS_ENV_FILE} | grep ${TARGET_ENV}_title | awk -F'[=]' '{print $2}'`
 ENV_DESC=`cat ${AWS_ENV_FILE} | grep ${TARGET_ENV}_desc | awk -F'[=]' '{print $2}'`
@@ -66,10 +67,14 @@ if [ "${API_GATEWAY_ID}" = "" ]; then
   exit 1
 fi
 
+touch ${LOG_FILE}
 aws apigateway put-rest-api \
   --mode overwrite \
   --cli-binary-format raw-in-base64-out \
   --rest-api-id ${API_GATEWAY_ID} \
-  --body "file://${OUT_YAML_FILE}"
+  --body "file://${OUT_YAML_FILE}" \
+  1> ${LOG_FILE}
+
+aws apigateway create-deployment --rest-api-id ${API_GATEWAY_ID} --stage-name prod 1>> ${LOG_FILE}
 
 rm -rf ${OUT_YAML_FILE}
