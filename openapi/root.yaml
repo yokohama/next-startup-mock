@@ -39,8 +39,8 @@ paths:
                     name: Hoge Moge
                   - id: 2
                     name: Foo Bar
-        '405':
-          $ref: '#/components/responses/UnauthorizedError'
+          #'401':
+          #$ref: '#/components/responses/UnauthorizedError'
       x-amazon-apigateway-integration:
         type: "http_proxy" 
         httpMethod: "GET" 
@@ -50,7 +50,7 @@ paths:
 
 components:
   securitySchemes:
-    Bearer:
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -65,10 +65,3 @@ components:
           format: int64
         name:
           type: string
-  responses:
-    UnauthorizedError:
-      description: API key is missing or invalid
-      headers:
-        WWW_Authenticate:
-          schema:
-            type: string
